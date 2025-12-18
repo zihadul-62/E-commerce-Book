@@ -49,37 +49,27 @@ void addBook()
 
 void editBook()
 {
-        FILE *fp, *temp;
-        int bookId, found = 0;
+        FILE *fp = fopen("books.txt", "r");
+        FILE *temp = fopen("temp.txt", "w");
 
-        showBookList();
-
-        printf("\nEnter the Book ID to edit: ");
-        scanf("%d", &bookId);
-
-        fp = fopen("books.txt", "r");
         if (fp == NULL)
         {
                 printf("No books available.\n");
                 return;
         }
 
-        temp = fopen("temp.txt", "w");
-        if (temp == NULL)
-        {
-                printf("Error creating temp file.\n");
-                fclose(fp);
-                return;
-        }
-
+        int bookId, found = 0;
         char line[200];
+
+        showBookList();
+        printf("\nEnter the Book ID to edit: ");
+        scanf("%d", &bookId);
 
         while (fgets(line, sizeof(line), fp))
         {
-                int id;
+                int id, quantity;
                 char name[50], author[50];
                 float price;
-                int quantity;
 
                 sscanf(line, "%d,%49[^,],%49[^,],%f,%d",
                        &id, name, author, &price, &quantity);
@@ -87,28 +77,40 @@ void editBook()
                 if (id == bookId)
                 {
                         found = 1;
+                        int choice;
 
                         printf("\nEditing Book ID %d\n", id);
+                        printf("1. Name\n2. Author\n3. Price\n4. Quantity\nChoose: ");
+                        scanf("%d", &choice);
 
-                        printf("New book name: ");
-                        scanf(" %[^\n]", name);
-
-                        printf("New author name: ");
-                        scanf(" %[^\n]", author);
-
-                        printf("New price: ");
-                        scanf("%f", &price);
-
-                        printf("New quantity: ");
-                        scanf("%d", &quantity);
-
-                        fprintf(temp, "%d,%s,%s,%.2f,%d\n",
-                                id, name, author, price, quantity);
+                        if (choice == 1)
+                        {
+                                printf("Enter new name: ");
+                                scanf(" %[^\n]", name);
+                        }
+                        else if (choice == 2)
+                        {
+                                printf("Enter new author: ");
+                                scanf(" %[^\n]", author);
+                        }
+                        else if (choice == 3)
+                        {
+                                printf("Enter new price: ");
+                                scanf("%f", &price);
+                        }
+                        else if (choice == 4)
+                        {
+                                printf("Enter new quantity: ");
+                                scanf("%d", &quantity);
+                        }
+                        else
+                        {
+                                printf("Invalid choice. No changes made.\n");
+                        }
                 }
-                else
-                {
-                        fprintf(temp, "%s", line);
-                }
+
+                fprintf(temp, "%d,%s,%s,%.2f,%d\n",
+                        id, name, author, price, quantity);
         }
 
         fclose(fp);
@@ -118,9 +120,9 @@ void editBook()
         rename("temp.txt", "books.txt");
 
         if (found)
-                printf("\nBook updated successfully!\n");
+                printf("Book updated successfully.\n");
         else
-                printf("\nBook ID not found.\n");
+                printf("Book ID not found.\n");
 }
 
 // void deleteBook() {
