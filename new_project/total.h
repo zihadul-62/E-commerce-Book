@@ -10,6 +10,7 @@ void showBookList();
 void register_user();
 int login_user();
 // int next_id();
+void showBookDetails();
 
 
 #endif

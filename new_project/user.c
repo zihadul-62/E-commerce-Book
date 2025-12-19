@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "total.h"
+#include <string.h>
 
 
 // void showBookDetails(int id);
 void userPage() {
     int choice;
     int bookId;
+    char res[10];
 
     do {
         printf("\n===== USER PAGE =====\n");
@@ -18,10 +20,16 @@ void userPage() {
 
         switch (choice) {
             case 1:
-                // showBookList();
-                printf("\nSelect a book ID to view details: ");
-                scanf("%d", &bookId);
-                // showBookDetails(bookId);
+                showBookList();
+                
+                printf("Do you want to view Details? Enter Yes or No");
+                scanf("%s",res);
+                if(strcmp(res,"Yes")==0){
+                 printf("\nSelect a book ID to view details: \n");
+                 scanf("%d", &bookId);
+                showBookDetails(bookId);
+                }
+               
                 break;
 
             case 2:

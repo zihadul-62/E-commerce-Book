@@ -189,7 +189,33 @@ void showBookList()
         }
         char line[200];
         printf("===== BOOK LIST =====\n");
+        // printf("ID | Name | Author | Price | Quantity\n");
+        printf("ID | Name\n");
+        printf("---------------------------------------\n");
+        while (fgets(line, sizeof(line), fp))
+        {
+                int id;
+                char name[50];
+                char author[50];
+                float price;
+                int quantity;
+                sscanf(line, "%d,%49[^,]", &id, name);
+                printf("%d | %s\n", id, name);
+        }
+        fclose(fp);
+}
+
+  void showBookDetails(){
+        FILE *fp = fopen("books.txt", "r");
+        if (fp == NULL)
+        {
+                printf("No books available.\n");
+                return;
+        }
+        char line[200];
+        printf("===== BOOK DETAILS LIST =====\n");
         printf("ID | Name | Author | Price | Quantity\n");
+       
         printf("---------------------------------------\n");
         while (fgets(line, sizeof(line), fp))
         {
@@ -202,4 +228,4 @@ void showBookList()
                 printf("%d | %s | %s | %.2f | %d\n", id, name, author, price, quantity);
         }
         fclose(fp);
-}
+  }
