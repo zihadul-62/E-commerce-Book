@@ -11,7 +11,7 @@ int main () {
         login_user();
     } else {
         register_user();
-        login_user();
+        login_user(); 
     }
 
     
