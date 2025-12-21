@@ -210,6 +210,19 @@ void showBookDetails(int targetId)
                         printf("\n\t\t  PRICE      : $%.2f", price);
                         printf("\n\t\t  STOCK QTY  : %d units", quantity);
                         printf("\n\t\t-------------------------------------\n");
+
+                        // --- ADDED ORDER BUTTON LOGIC ---
+                        int orderChoice;
+                        printf("\t\t[1] Order Now  [0] Back to List\n");
+                        printf("\t\tSelection: ");
+                        scanf("%d", &orderChoice);
+
+                        if (orderChoice == 1)
+                        {
+                                // Call function from order.c
+                                placeOrder(id, name, price);
+                        }
+
                         break;
                 }
         }

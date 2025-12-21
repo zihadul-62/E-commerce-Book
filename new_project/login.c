@@ -60,7 +60,7 @@ int login_user()
                 printf("\n\t\tPress Enter to enter Dashboard...");
                 getchar(); getchar(); 
                 
-                userPage();
+                userPage(u);
                 return 1;
             }
         }

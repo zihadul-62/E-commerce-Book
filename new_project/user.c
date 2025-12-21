@@ -2,9 +2,9 @@
 #include "total.h"
 #include <string.h>
 
-// void showBookDetails(int id);
-void userPage()
+void userPage(char *loggedInUser)
 {
+    placeOrder(loggedInUser, id, name, price); // Pass it here
     int choice;
     int bookId;
 
@@ -41,6 +41,10 @@ void userPage()
             }
             break;
 
+        case 2:
+            viewOrderHistory(loggedInUser); // Display history for this user
+            break;
+
         case 0:
             printf("\n\t\t[!] Logging out...\n");
             break;
@@ -58,31 +62,3 @@ void userPage()
 
     } while (choice != 0);
 }
-// void showBookDetails(int id) {
-//     FILE *fp = fopen("books.dat", "rb");
-//     if(!fp) {
-//         printf("No books available!\n");
-//         return;
-//     }
-
-//     Book b;
-//     int found = 0;
-
-//     while(fread(&b, sizeof(Book), 1, fp)) {
-//         if(b.id == id) {
-//             printf("\n--- BOOK DETAILS ---\n");
-//             printf("ID: %d\n", b.id);
-//             printf("Title: %s\n", b.title);
-//             printf("Author: %s\n", b.author);
-//             printf("Price: %.2f\n", b.price);
-//             printf("Quantity: %d\n", b.quantity);
-//             found = 1;
-//             break;
-//         }
-//     }
-
-//     if(!found)
-//         printf("Book not found!\n");
-
-//     fclose(fp);
-// }
