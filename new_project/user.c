@@ -7,11 +7,9 @@ void userPage()
 {
     int choice;
     int bookId;
-    char res[10];
 
     do
     {
-        // --- DASHBOARD UI START ---
         printf("\n\t\t========================================");
         printf("\n\t\t           USER CONTROL PANEL           ");
         printf("\n\t\t========================================");
@@ -21,11 +19,10 @@ void userPage()
         printf("\n\t\t  [0] Logout Session");
         printf("\n\t\t----------------------------------------");
         printf("\n\t\tEnter choice: ");
-        // --- DASHBOARD UI END ---
 
         if (scanf("%d", &choice) != 1)
         {
-            printf("\n\t\t[!] Please enter a valid number.");
+            printf("\n\t\t[!] Invalid input.");
             while (getchar() != '\n')
                 ;
             continue;
@@ -34,33 +31,18 @@ void userPage()
         switch (choice)
         {
         case 1:
-            printf("\n\t\t--- LOADING BOOK GALLERY ---\n");
-            showBookList();
+            printf("\n\t\t--- AVAILABLE BOOKS ---\n");
+            showBookList(); // Now shows Name + Author
 
-            printf("\n\t\tDo you want to view Details? (Yes/No): ");
-            scanf("%s", res);
-
-            // Flexible check for "Yes" or "yes"
-            if (strcmp(res, "Yes") == 0 || strcmp(res, "yes") == 0)
+            printf("\n\t\tEnter Book ID to view full details: ");
+            if (scanf("%d", &bookId) == 1)
             {
-                printf("\t\tEnter Book ID to inspect: ");
-                scanf("%d", &bookId);
-                showBookDetails(bookId);
+                showBookDetails(bookId); // Now searches for specific ID
             }
             break;
 
-        case 2:
-            printf("\n\t\t>> Opening Order History...\n");
-            // order_list_function();
-            break;
-
-        case 3:
-            printf("\n\t\t>> Opening Your Cart...\n");
-            // cart_function();
-            break;
-
         case 0:
-            printf("\n\t\t[!] Logging out... Session ended safely.\n");
+            printf("\n\t\t[!] Logging out...\n");
             break;
 
         default:
@@ -71,13 +53,11 @@ void userPage()
         {
             printf("\n\t\tPress Enter to return to Dashboard...");
             getchar();
-            getchar(); // Wait for user input
+            getchar();
         }
 
     } while (choice != 0);
 }
-
-
 // void showBookDetails(int id) {
 //     FILE *fp = fopen("books.dat", "rb");
 //     if(!fp) {

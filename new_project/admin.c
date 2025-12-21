@@ -9,7 +9,7 @@ void adminPage(){
         printf("2. Edit Book\n");
         printf("3. Delete Book\n");
         printf("4. Show Book List\n");
-        printf("5. Exit\n");
+        printf("0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
@@ -30,7 +30,7 @@ void adminPage(){
                 showBookList();
                 break;
 
-            case 5:
+            case 0:
                 printf("Exiting admin panel...\n");
                 break;
 
@@ -38,5 +38,5 @@ void adminPage(){
                 printf("Invalid choice!\n");
         }
 
-    } while(choice != 5);
+    } while(choice != 0);
 }

@@ -12,7 +12,8 @@ void display_menu()
     printf("==========================================\n");
     printf("  [1] Login to Account                   \n");
     printf("  [2] Create New Account                 \n");
-    printf("  [3] Exit                               \n");
+    printf("  [3] Login as Admin                     \n");
+    printf("  [0] Exit                               \n");
     printf("------------------------------------------\n");
     printf("Please select an option (1-3): ");
 }
@@ -44,6 +45,11 @@ int main()
             register_user();
             break;
         case 3:
+            printf("\n--- Opening as Admin ---\n");
+            login_admin();
+            break;
+
+        case 0:
             printf("\nExiting... Goodbye!\n");
             return 0;
         default:

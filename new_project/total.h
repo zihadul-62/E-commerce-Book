@@ -1,6 +1,8 @@
 #ifndef TOTAL_H
 #define TOTAL_H
 
+
+
 void adminPage();
 void userPage();
 void addBook();
@@ -11,6 +13,10 @@ void register_user();
 int login_user();
 // int next_id();
 void showBookDetails();
+int  login_admin();
+
+
+
 
 
 #endif
