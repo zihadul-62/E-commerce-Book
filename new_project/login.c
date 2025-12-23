@@ -4,10 +4,10 @@
 #include "total.h"
 
 // Define colors for a professional look
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define YEL   "\x1B[33m"
-#define CYN   "\x1B[36m"
+#define RED "\x1B[31m"
+#define GRN "\x1B[32m"
+#define YEL "\x1B[33m"
+#define CYN "\x1B[36m"
 #define RESET "\x1B[0m"
 
 int login_user()
@@ -53,20 +53,22 @@ int login_user()
                 printf("\n\t\t[+] Login successful!");
                 printf("\n\t\tWelcome back, " YEL "%s" RESET "!", u);
                 printf("\n\t\t" GRN "--------------------------------" RESET "\n");
-                
+
                 fclose(fp);
-                
+
                 // Add a small pause before clearing screen for userPage
                 printf("\n\t\tPress Enter to enter Dashboard...");
-                getchar(); getchar(); 
-                
+                getchar();
+                getchar();
+
                 userPage(u);
                 return 1;
             }
         }
 
         attempts--;
-        if (attempts > 0) {
+        if (attempts > 0)
+        {
             printf("\n\t\t" YEL "[!] Incorrect password." RESET);
             printf("\n\t\tRemaining attempts: " RED "%d" RESET "\n\n", attempts);
         }
@@ -76,5 +78,27 @@ int login_user()
     printf("\n\t\t" RED "********************************" RESET);
     printf("\n\t\t [!] ACCESS DENIED: LOCKOUT");
     printf("\n\t\t" RED "********************************" RESET "\n");
+    //  we will shift user in forgot password function;
+    //  but first if else ask he want go or not?
+
+    char choice;
+    printf("\n\t\t Do you want to recover your password? (y/n): ");
+
+    getchar();
+    scanf("%c", &choice);
+    system("clear");
+
+    if (choice == 'y' || choice == 'Y')
+    {
+        forget_pass();
+    }
+    else
+    {
+        printf("\n\t\t Returning to main menu...\n");
+        return 0;
+    }
+
+    printf("\n\t\t" RED "********************************" RESET "\n");
+
     return 0;
 }
