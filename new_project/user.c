@@ -4,13 +4,15 @@
 
 void userPage(char *loggedInUser)
 {
-    // REMOVED: placeOrder(loggedInUser, id, name, price); 
+    // REMOVED: placeOrder(loggedInUser, id, name, price);
     // This was an error because id, name, and price are unknown here.
 
     int choice;
     int bookId;
+    system("clear");
 
-    do {
+    do
+    {
         printf("\n\t\t========================================");
         printf("\n\t\t           USER CONTROL PANEL           ");
         printf("\n\t\t========================================");
@@ -20,34 +22,40 @@ void userPage(char *loggedInUser)
         printf("\n\t\t----------------------------------------");
         printf("\n\t\tEnter choice: ");
 
-        if (scanf("%d", &choice) != 1) {
+        if (scanf("%d", &choice) != 1)
+        {
             printf("\n\t\t[!] Invalid input.");
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
             continue;
         }
 
-        switch (choice) {
-            case 1:
-                showBookList();
-                printf("\n\t\tEnter Book ID to view full details: ");
-                if (scanf("%d", &bookId) == 1) {
-                    // Pass the loggedInUser here so the next function can use it
-                    showBookDetails(bookId, loggedInUser);
-                }
-                break;
-            case 2:
-                viewOrderHistory(loggedInUser);
-                break;
-            case 0:
-                printf("\n\t\t[!] Logging out...\n");
-                break;
-            default:
-                printf("\n\t\t[!] Selection not recognized!\n");
+        switch (choice)
+        {
+        case 1:
+            showBookList();
+            printf("\n\t\tEnter Book ID to view full details: ");
+            if (scanf("%d", &bookId) == 1)
+            {
+                // Pass the loggedInUser here so the next function can use it
+                showBookDetails(bookId, loggedInUser);
+            }
+            break;
+        case 2:
+            viewOrderHistory(loggedInUser);
+            break;
+        case 0:
+            printf("\n\t\t[!] Logging out...\n");
+            break;
+        default:
+            printf("\n\t\t[!] Selection not recognized!\n");
         }
 
-        if (choice != 0) {
+        if (choice != 0)
+        {
             printf("\n\t\tPress Enter to return to Dashboard...");
-            getchar(); getchar();
+            getchar();
+            getchar();
         }
     } while (choice != 0);
 }
