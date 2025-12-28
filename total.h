@@ -1,9 +1,7 @@
 #ifndef TOTAL_H
 #define TOTAL_H
 #include <sqlite3.h>
-
 extern sqlite3 *db;
-
 void adminPage();
 void userPage(char *loggedInUser); // Updated
 void addBook();

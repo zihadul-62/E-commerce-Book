@@ -75,15 +75,15 @@ void checkout(char *username)
     }
 
     // 2. Apply Discount Logic
-    if (total_bill >= 2000)
+    if (total_bill >= 1999)
     {
         discount = 0.20; // 20% discount
     }
-    else if (total_bill >= 1500)
+    else if (total_bill >= 1499)
     {
         discount = 0.10; // 10% discount
     }
-    else if (total_bill >= 1000)
+    else if (total_bill >= 999)
     {
         discount = 0.05; // 5% discount
     }
