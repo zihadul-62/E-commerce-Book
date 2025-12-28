@@ -14,28 +14,34 @@ void placeOrder(char *username, int bookId, char *bookName, float price)
     char date[20];
     sprintf(date, "%02d-%02d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
-    const char *sql = "INSERT INTO orders (username, book_id, book_name, price, order_date) VALUES (?, ?, ?, ?, ?);";
-
-    if (sqlite3_prepare_v2(db, sql, -1, &res, 0) == SQLITE_OK)
+    // SQL 1: Record the order
+    const char *sql_order = "INSERT INTO orders (username, book_id, book_name, price, order_date) VALUES (?, ?, ?, ?, ?);";
+    if (sqlite3_prepare_v2(db, sql_order, -1, &res, 0) == SQLITE_OK)
     {
         sqlite3_bind_text(res, 1, username, -1, SQLITE_STATIC);
         sqlite3_bind_int(res, 2, bookId);
         sqlite3_bind_text(res, 3, bookName, -1, SQLITE_STATIC);
         sqlite3_bind_double(res, 4, price);
         sqlite3_bind_text(res, 5, date, -1, SQLITE_STATIC);
-
-        if (sqlite3_step(res) == SQLITE_DONE)
-        {
-            printf("\n\t\t[SUCCESS] Order placed for %s\n", username);
-        }
+        sqlite3_step(res);
         sqlite3_finalize(res);
+    }
+
+    // SQL 2: Update stock quantity (Robust logic)
+    const char *sql_stock = "UPDATE books SET quantity = quantity - 1 WHERE id = ? AND quantity > 0;";
+    sqlite3_stmt *stock_res;
+    if (sqlite3_prepare_v2(db, sql_stock, -1, &stock_res, 0) == SQLITE_OK)
+    {
+        sqlite3_bind_int(stock_res, 1, bookId);
+        sqlite3_step(stock_res);
+        sqlite3_finalize(stock_res);
     }
 }
 
 void viewOrderHistory(char *currentUser)
 {
     sqlite3_stmt *res;
-    
+
     // Optimization: The database filters the records for us
     const char *sql = "SELECT id, book_name, price, order_date FROM orders WHERE username = ?;";
 
