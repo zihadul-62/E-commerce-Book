@@ -34,7 +34,8 @@ int login_user()
         const char *sql = "SELECT username FROM users WHERE username = ? AND password = ?;";
 
         // 1. Prepare the SQL statement
-        if (sqlite3_prepare_v2(db, sql, -1, &res, 0) != SQLITE_OK) {
+        if (sqlite3_prepare_v2(db, sql, -1, &res, 0) != SQLITE_OK)
+        {
             printf("\n\t\t" RED "[!] Database Error: %s" RESET "\n", sqlite3_errmsg(db));
             return 0;
         }
@@ -46,7 +47,8 @@ int login_user()
         // 3. Execute and check result
         int step = sqlite3_step(res);
 
-        if (step == SQLITE_ROW) {
+        if (step == SQLITE_ROW)
+        {
             // Success! Row found means credentials match.
             printf("\n\t\t" GRN "--------------------------------" RESET);
             printf("\n\t\t[+] Login successful!");
@@ -56,19 +58,23 @@ int login_user()
             sqlite3_finalize(res); // Always finalize before returning
 
             printf("\n\t\tPress Enter to enter Dashboard...");
-            getchar(); getchar();
+            getchar();
+            getchar();
 
             userPage(username);
             return 1;
-        } else {
+        }
+        else
+        {
             // No row found or error
             attempts--;
-            if (attempts > 0) {
+            if (attempts > 0)
+            {
                 printf("\n\t\t" YEL "[!] Incorrect credentials." RESET);
                 printf("\n\t\tRemaining attempts: " RED "%d" RESET "\n\n", attempts);
             }
         }
-        
+
         sqlite3_finalize(res); // Finalize after each attempt loop
     }
 
@@ -81,11 +87,19 @@ int login_user()
     printf("\n\t\t Do you want to recover your password? (y/n): ");
     getchar();
     scanf("%c", &choice);
-    system("clear");
 
-    if (choice == 'y' || choice == 'Y') {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+
+    if (choice == 'y' || choice == 'Y')
+    {
         forget_pass();
-    } else {
+    }
+    else
+    {
         printf("\n\t\t Returning to main menu...\n");
         return 0;
     }

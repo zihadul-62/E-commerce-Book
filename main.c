@@ -9,7 +9,13 @@ sqlite3 *db;
 
 void display_menu()
 {
+    
+#ifdef _WIN32
+    system("cls");
+#else
     system("clear");
+#endif
+
     printf("==========================================\n");
     printf("        WELCOME TO E-Commerce Book        \n");
     printf("==========================================\n");
@@ -25,7 +31,8 @@ int main()
 {
     // 1. Open the database connection
     int rc = sqlite3_open("ecommerce.db", &db);
-    if (rc) {
+    if (rc)
+    {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         return 1;
     }
@@ -37,25 +44,34 @@ int main()
         if (scanf("%d", &choice) != 1)
         {
             printf("\nInvalid input. Please enter a number.\n");
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
             continue;
         }
 
         switch (choice)
         {
-        case 1: login_user(); break;
-        case 2: register_user(); break;
-        case 3: login_admin(); break;
-        case 0: 
+        case 1:
+            login_user();
+            break;
+        case 2:
+            register_user();
+            break;
+        case 3:
+            login_admin();
+            break;
+        case 0:
             printf("\nExiting... Goodbye!\n");
             // 2. Close the database connection before exiting
             sqlite3_close(db);
             return 0;
-        default: printf("\nOption not recognized. Try again.\n");
+        default:
+            printf("\nOption not recognized. Try again.\n");
         }
 
         printf("\nPress Enter to continue...");
-        getchar(); getchar();
+        getchar();
+        getchar();
     }
     return 0;
 }

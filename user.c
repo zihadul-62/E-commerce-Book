@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 #include "total.h"
+#include <stdlib.h>
 
 void userPage(char *loggedInUser)
 {
-    // REMOVED: placeOrder(loggedInUser, id, name, price); 
-    // This was an error because id, name, and price are unknown here.
+    
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+
+  
 
     int choice;
     int bookId;
